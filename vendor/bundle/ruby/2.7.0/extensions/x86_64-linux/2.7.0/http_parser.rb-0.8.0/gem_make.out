@@ -1,0 +1,16 @@
+current directory: /home/b4rt0/Documents/S4vitar/Jekyll_Github_pages/alejobarto8.github.io/vendor/bundle/ruby/2.7.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
+/usr/bin/ruby2.7 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20221021-296937-1qy24c2.rb extconf.rb
+creating Makefile
+
+current directory: /home/b4rt0/Documents/S4vitar/Jekyll_Github_pages/alejobarto8.github.io/vendor/bundle/ruby/2.7.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
+make DESTDIR\= clean
+
+current directory: /home/b4rt0/Documents/S4vitar/Jekyll_Github_pages/alejobarto8.github.io/vendor/bundle/ruby/2.7.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
+make DESTDIR\=
+compiling ruby_http_parser.c
+compiling ryah_http_parser.c
+linking shared-object ruby_http_parser.so
+
+current directory: /home/b4rt0/Documents/S4vitar/Jekyll_Github_pages/alejobarto8.github.io/vendor/bundle/ruby/2.7.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 ruby_http_parser.so ./.gem.20221021-296937-19fzx38

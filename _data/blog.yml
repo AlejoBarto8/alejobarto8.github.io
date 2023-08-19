@@ -12,11 +12,11 @@
 - name: HTML
   href: /html/
 
-- name: Database
-  href: /database/
+- name: PortSwigger
+  href: /portswigger/
 
-- name: Mac
-  href: /mac/
+- name: HTB
+  href: /htb/
 
 - name: Life
   href: /life/
