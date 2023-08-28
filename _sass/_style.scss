@@ -2453,18 +2453,24 @@ body {
     }
     .navbar-brand {
       &:focus, &:hover {
-        background: #3385FF;
+        background: none;/*#3385FF;*/
         color: #fff;
+        background-position: right center;
       }
       color: #fff;
       height: auto;
       display: block;
       font-size: 14px;
-      background: #3385FF;
-      padding: 15px 20px;
-      border-radius: 0 0 5px 5px;
+      /*background: red;#3385FF;*/
+      padding: 15px 30px;
+      border-radius: 0 0 3px 3px;
       font-weight: 700;
       transition: all .3s ease-in-out 0s;
+      
+      text-transform: uppercase;
+      background-image: linear-gradient(to right, #1CD8D2 0%, #93EDC7  51%, #1CD8D2  100%);
+      background-size: 200% auto;
+      box-shadow: 0 0 20px #eee;
     }
   }
   .navbar-scroll.navbar-default .nav li a {
@@ -2703,6 +2709,12 @@ body {
         border-color: #1dc5a3;
       }
     }
+  }
+}
+
+.icon-htb {
+  &::before {
+    content: "\f1b2";
   }
 }
 

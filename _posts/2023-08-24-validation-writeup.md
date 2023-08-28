@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Return Writeup - Hack The Box"
-date:   2023-01-17
+title:  "Validation Writeup - Hack The Box"
+date:   2023-08-23
 desc: "Abusing Printer, Abusing Server Operators Group, Service Configuration Manipulation"
 keywords: "HTB,eJPT,OSCP,Easy"
 categories: [HTB]
@@ -9,14 +9,14 @@ tags: [HTB,eJPT,OSCP,Easy]
 icon: icon-htb
 ---
 
-Everyone wants to have a personal website, you can display your infomation to public, post blogs and make friends. If you are CS engineer, haveing a self website will benefit your interview.
+> **Disclaimer:** The ***writeups*** that I do on the different machines that I try to vulnerate, cover all the actions that I perform, even those that could be considered wrong, I consider that they are an essential part of the **learning curve** to become a **good professional**. So it can become very extensive content, if you are looking for something more direct, you should look for another site, there are many and of higher quality and different resolutions, moreover, I advocate that it is part of learning to consult different sources, to obtain greater expertise.
 
-So, if you like this website <https://jarrekk.github.io/Jalpc/> or <http://www.jarrekk.com> and are willing to have a website, here is a way to build your website in 3 steps(2 minutes). Following are steps to setup your website(make sure you have basic knowledge of [Jekyll](https://jekyllrb.com/) and [GitHub Pages](https://pages.github.com/), if you want to custom css/js [NPM](https://github.com/npm/npm) is needed):
+
 
 1. Fork [this project -- Jalpc](https://github.com/jarrekk/Jalpc) at [GitHub](https://github.com). If you want to edit website at github, do it as following gif or clone forked repository. `git clone git@github.com:github_username/Jalpc.git`.
 
 	<!-- ![edit]({{ site.img_path }}/returnwriteup/Return.png) -->
-	<img src="{{ site.img_path }}/returnwriteup/Return.png" width="400px">
+	<img src="{{ site.img_path }}/validation_writeup/Validation.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 
 2. Enter into repository directory and edit following file list:
 
