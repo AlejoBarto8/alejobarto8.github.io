@@ -16,7 +16,7 @@ icon: icon-htb
 <img src="{{ site.img_path }}/underthewirecentury/UTH_century_01.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br/><br/>
 
-We set up the connection in `Putty` with the Under The Wire game server and save the session so that we don't do it repeatedly, every time we have to connect or reach a new level in each game.
+I set up the connection in `Putty` with the Under The Wire game server and save the session so that we don't do it repeatedly, every time we have to connect or reach a new level in each game.
 <br/><br/>
 
 <img src="{{ site.img_path }}/underthewirecentury/UTH_century_02.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
@@ -29,14 +29,14 @@ We set up the connection in `Putty` with the Under The Wire game server and save
 <img src="{{ site.img_path }}/underthewirecentury/UTH_century_06.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
 <br/>
 
-We must register in the **[Under The Wire Slack channel](https://underthewire.slack.com/)** to obtain the initial credentials for each game, in the **#starthere** channel.
+I must register in the **[Under The Wire Slack channel](https://underthewire.slack.com/)** to obtain the initial credentials for each game, in the **#starthere** channel.
 I'm going to start with the initial one, `Century` and then go up the difficulty. For the initial level we just need to get the connection to the server, here we go!
 <br/><br/>
 
 <img src="{{ site.img_path }}/underthewirecentury/UTH_century_04.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
 <br/>
 
-We connect and I can continue with the next level. As these are initial levels I will try to reach different objectives and publish them in a single post, when the complexity or difficulty of the game increases I will create a new post.
+I connect and can continue with the next level. As these are initial levels I will try to reach different objectives and publish them in a single post, when the complexity or difficulty of the game increases I will create a new post.
 <br/><br/>
 
 <img src="{{ site.img_path }}/underthewirecentury/UTH_century_03.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
