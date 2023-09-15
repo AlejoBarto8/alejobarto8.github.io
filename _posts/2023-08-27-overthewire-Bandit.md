@@ -578,6 +578,10 @@ I can now go to the next level as user **`bandit14`**!
 <img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_49.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
 <br />
 
+> **`nc`**: or netcat utility is used for just about anything under the sun involving TCP, UDP, or UNIX-domain sockets. It can open TCP connections, send UDP packets, listen on arbitrary TCP and UDP ports, do port scanning, and deal with both IPv4 and IPv6.
+
+> **`telnet`**: is used for interactive communication with another host using the TELNET protocol. It begins in command mode, where it prints a telnet prompt ("telnet> "). If telnet is invoked with a host argument, it performs an open command implicitly.
+
 Now I have to send the password string to the port of the victim machine on port 30000, I can do it with `nc` or `telnet` and get the password of the user **`bandit15`**.
 
 ```bash
@@ -602,15 +606,818 @@ I can now access the remote server as the user **`bandit15`**!
 <img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_52.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
 <br />
 
+> **`openssl`**: is a cryptography toolkit implementing the Secure Sockets Layer (SSL v2/v3) and Transport Layer Security (TLS v1) network protocols and related cryptography standards required by them.
+
+At this level now I must send the password of the user bandit15, but using SSL encryption, for that I can help me with the command openssl. I can search with the `openssl` command `man` to find the parameter I need to connect.
 
 ```bash
+man openssl
+# /client
+#   s_client
+#   This implements a generic SSL/TLS client which can establish a transparent connection to a remote server speaking SSL/TLS.
 ```
+
+Now that I find what I need, I connect with `openssl` and send the password, and I can advance to the next level.
+
 <br />
-<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_52.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_53.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_54.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
 <br />
 
-I can now access the remote server as the user **`bandit16`**!
+I advance to the next level, I connect with `ssh` as the user **`bandit16`**!
 
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_55.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 16
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_56.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+> **`nmap`**: “Network Mapper” is an open source tool for network exploration and security auditing. It was designed to rapidly scan large networks, although it works fine against single hosts. Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics.
+
+With the `nmap` tool I can first look for the open ports on the local machine and then try to obtain the services that these ports offer.
+
+```bash
+nmap --open -T5 -v -n -p31000-32000 localhost
+nmap -sCV -p31046,31518,31691,31790,31960 localhost
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_57.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_58.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+Now I test those using SSL and get an id_rsa. With this private id_rsa I can connect as the user **`bandit17`**, I must not forget the permissions that the key must have, in order not to generate conflicts in the phase of authentication to the server, the permission must be **600** to obtain a terminal successfully.
+
+```bash
+openssl s_client -connect 127.0.0.1:31518
+openssl s_client -connect 127.0.0.1:31518
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_59.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_60.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_61.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+I create a folder where I can save the `id_rsa` with the correct permissions and connect via SSH to port **2220** as the user **`bandit17`** without entering any password. I can also do it from my attacker machine.
+
+```bash
+mkdir /tmp/oldbtest
+# or
+mktemp -d
+
+cd !$
+touch id_rsa
+nano !$
+chmod 600 id_rsa
+ssh -i id_rsa bandit17@localhost -p 2220
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_62.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_63.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_64.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_65.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+I can now move through the system as the user **`bandit17`** to continue advancing in level.
+
+## Level 17
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_66.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+> **`diff`**: Compare FILES line by line.
+
+At this level I have to compare two files, which I am informed have only one line of text difference between their contents, which happens to be the password of the user **`bandit18`**. With the `diff` command I can perform the task.
+
+```bash
+diff passwords.old passwords.new
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_67.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+Now I can connect as the user **`bandit18`**, but when I do it, I am automatically expelled from the service, it is a task that I must solve in the next level.
+
+```bash
+ssh bandit18@bandit.labs.overthewire.org -p2220
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_68.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 18
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_69.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+When connecting to the **ssh** service, there is a possibility to execute a command before being kicked out of the connection, I try listing the directory or executing the `whoami` command, and I get what I expected.
+
+```bash
+ssh bandit18@bandit.labs.overthewire.org -p2220 ls
+ssh bandit18@bandit.labs.overthewire.org -p2220 whoami
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_70.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+Now I can take advantage of this **SSH** feature and spawn a `bash` to maintain the connection before being kicked out of the session, and I can connect as **`bandit19`**.
+
+```bash
+ssh bandit18@bandit.labs.overthewire.org -p2220 bash
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_71.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_72.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 19
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_73.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+> Tip: **SUID (Set-user Identification)** and **SGID (Set-group identification)** are two special permissions that can be set on executable files, and These permissions allow the file being executed to be executed with the privileges of the owner or the group.
+
+At this level I can run a script with SUID permissions, `bandit20-do`, i.e. with the privileges of its owner, which is `bandit20`. The script allows me to execute commands, so I try some basic ones like `whoami` or `id` and the output corresponds to as if it was executed by `bandit20`.
+
+```bash
+./bandit20-do
+./bandit20-do whoami
+./bandit20-do id
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_74.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+Now I can look up the password of the user **`bandit20`** or even spawn a shell. To get a shell as the user **`bandit20`**, I have to run `bash` with the `-p` parameter
+
+```bash
+./bandit20-do ls /etc/bandit_pass/bandit20
+./bandit20-do cat /etc/bandit_pass/bandit20
+./bandit20-do bash
+./bandit20-do bash -p
+```
+
+> Tip: If Bash is started with the effective user (group) id not equal to the real user (group) id, and the `-p` option is not supplied, no startup files are read, shell functions are not inherited from the environment, the **SHELLOPTS**, **BASHOPTS**, **CDPATH**, and **GLOBIGNORE** variables, if they appear in the environment, are ignored, and the effective user id is set to the real user id. If the `-p` option is supplied at invocation, the startup behavior is the same, but the effective user id is not reset.
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_75.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+It's time to log in as **`bandit20`** and continue the journey.
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_76.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 20
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_77.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+They tell me that there is a script whose function is to establish a connection with a port that I choose, and it waits for me to send it the correct password of `bandit20` and in this way it sends me the one of the user `bandit21`.
+
+So I perform the following steps:
+
+- I run the DFD script and pass it the port of my choice.
+- I get a new shell as the user `bandit20` and using `nc` to establish the connection with the port on the local machine and send the password and I get what I need to move forward.
+
+```bash
+./suconnect
+./suconnect 4141
+```
+
+```bash
+ssh bandit20@bandit.labs.overthewire.org -p2220
+
+nc -nlvp 4141
+# < bandit20 password >
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_78.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+It now allows me to connect as **`bandit21`** and move on to the next challenge.
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_79.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 21
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_80.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+For this level I have to search in the `cron` jobs, the one that can help me to go up to the next level, I find **`cronjob_bandit22`**, the one that performs a task every minute. It is running a script **`cronjob_bandit22.sh`** that performs two operations:
+
+- sets the necessary permissions on a file in the `tmp` folder so that all users can read its contents.
+- saves the password of the user `bandit22` in the above mentioned file
+
+Now I just need to read the contents of the file and I get the password for the next level.
+
+```bash
+ls /etc/cron.d
+ls /etc/cron.d/cronjob_bandit22
+cat !$
+cat /usr/bin/cronjob_bandit22.sh
+cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_81.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+I access through the SSH service as user **`bandit22`**, it is time to move to the next level.
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_82.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 22
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_83.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+> **`cut`**:  Print selected parts of lines from each FILE to standard output.
+
+> **`md5sum`**: Print or check MD5 (128-bit) checksums.
+
+To advance a level I must analyze the code of a script with SUID permissions that runs as a Cron task, to understand what to do and then try to take advantage of the information obtained to obtain the password of the user `bandit23`.
+
+```bash
+ls /etc/cron.d/
+cat /etc/cron.d/cronjob_bandit23
+cat /usr/bin/cronjob_bandit23.sh
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_84.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+The script executes simple commands to analyze, it could be structured as follows:
+
+- saves in a variable **myname** the name of the user (everything makes me assume `bandit23`).
+- generates an **MD5** hash of a string containing the **myname** value and then stores it in another variable
+- finally it saves in a file, whose name matches the MD5 hash mentioned above.
+
+I just have to replicate the commands to get the name of the file where the password is stored and open the file:
+
+```bash
+myname=bandit23
+echo I am user $myname | md5sum | cut -d ' ' -f 1
+cat /tmp/8ca319486bfbbc36......
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_85.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+Now my journey continues at the next level, as the user **`bandit23`**
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_86.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 23
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_87.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+> **`stat`**: Display file or file system status.
+
+> **`timeout`**: Start COMMAND, and kill it if still running after DURATION.
+
+I continue to analyze scripts running under a Cron task.
+
+```bash
+ls /etc/cron.d/
+cat /etc/cron.d/cronjob_bandit24
+cat /usr/bin/cronjob_bandit24.sh
+
+kill -l
+#  9) SIGKILL
+```
+
+The script is simple, I could break it down into the following steps:
+
+- save the user name `bandit24` in a variable.
+- uses the avobe mentioned variable to move to a particular directory
+- it runs through the entire contents of the directory with a `for` loop except for the files that point to the current directory and the parent, checks that the owner of the file is `bandit 23` and executes it for 60s.
+- deletes the previously executed file
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_88.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+I think the best way to get the password, is to create a small script, that copies the content of the file where it is saved in a file that I indicate. To do this I must create the script and give it the permission so that others can also run it and I get what I want. I also must not forget to give permissions of execution and writing to the directory that I create temporarily, so that `bandit24` can write in it.
+
+```bash
+cd /tmp
+mktemp -d
+cd /tmp/tmp.0c6wze5jbN
+
+chmod o+wx ../tmp.0c6wze5jbN
+
+nano pwned.sh
+```
+
+> `pwned.sh` script:
+
+```bash
+#!/bin/bash
+
+cat /etc/bandit_pass/bandit24 > /tmp/tmp.0c6wze5jbN/pass.txt
+```
+
+```bash
+chmod +x pwned.sh
+chmod o+x pwned.sh
+cp pwned.sh /var/spool/bandit24/foo/pwned.sh
+watch -n 1 ls -l
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_89.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+I advance to the next challenge, I can now log in as the user **`bandit24`**.
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_90.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 24
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_91.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+This level puts me to test, I must perform a brute force attack against a service on port 30002, first I make some tests to observe the behavior of the daemon.
+
+```bash
+nc 127.0.0.1 30002
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_92.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+Now I try to create an online to generate the strings I need to send to the daemon and try to get the password.
+
+```bash
+for i in $(seq 0001 0005); do echo $i; done
+for i in {0001 0005}; do echo $i; done
+for i in {0001..0005}; do echo $i; done
+for i in {0001..0005}; do echo VAfGXJ1PBS... $i; done
+for i in {0001..9999}; do echo VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar $i; done | nc 127.0.0.1 30002
+for i in {0001..9999}; do echo VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar $i; done | nc 127.0.0.1 30002 | grep -v Wrong
+for i in {0001..9999}; do echo VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar $i; done | nc 127.0.0.1 30002 | grep -vE "Wrong|checker"
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_93.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+I use `grep` to hide when the output corresponds to an incorrect password and I get the expected output
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_94.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+With everything I have learned so far, the tasks are more complex but I am getting the necessary knowledge to accomplish them, now I advance to the next level as the user **`bandit25`**.
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_95.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 25
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_96.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+If I look at the **home** directory of the user `bandit25` I find an **id_rsa** to connect without entering a password as the user `bandit26` surely, but as I am informed in the challenge that it does not have a traditional shell, I look at the `/etc/passwd` what kind of shell it has and I do not know well what it is. But if I connect with the **id_rsa** I get kicked out of the connection.
+
+```bash
+file bandit26.sshkey
+cat /etc/passwd | grep bandit26
+ssh -i bandit26.sshkey bandit26@localhost -p 2220
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_97.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_98.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+If I try to **bypass** this restriction and **spawn** a shell with ssh I can't find a stable shell either. Before continuing I investigate what kind of shell has `bandit26`, and I see that it actually runs a script, and the most interesting thing is that in it runs the `more` command, if I resort to [GTFOBins - more](https://gtfobins.github.io/gtfobins/more/#shell){:target="_blank"} I find the way to get a shell.
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_99.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_100.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+All I need to do is reduce the height of the shell window and connect with **ssh**, so that `more` allows me to escape the restrictive environment and get the password for the user `bandit26`.
+
+> Tip: to enter edit mode press the **`V`** key and then edit a file as the user `bandit26`, I am interested in **/etc/bandit_pass/bandit26**.
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_101.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_102.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_103.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_104.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+
+I can now log in as the user **`bandit26`**, but I still have the problem of getting a **stable** shell, but the goal of getting the password has already been accomplished, so I will find the solution in the next challenge.
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_105.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 26
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_106.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+In order to escape from the restrictive environment and get a shell, I will exploit the same feature of `more` and instead of editing a file, I spawn a shell directly and I can move freely in a better terminal like **`bandit 26`**.
+
+```bash
+ssh bandit26@bandit.labs.overthewire.org -p2220
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_107.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_108.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_109.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+Now if I explore a little in the **home** directory of `bandit26` I find a script with **SUID** permissions, a concept that I can already use to perform a user pivoting, in this case I will spawn a shell and I can read the `bandit27` password.
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_110.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_111.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_112.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+I move on to the next challenge, now as **`bandit27`**!
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_113.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 27
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_114.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+> **`git`**: is a fast, scalable, distributed revision control system with an unusually rich command set that provides both high-level operations and full access to internals.
+
+Now I have to play with `git`, in this first level I just have to download the repository, whose address is given to me and that's it.
+
+```bash
+# Host victime
+cd /tmp
+mktemp -d
+cd /tmp/tmp.EoUA93jgIG
+git clone ssh://bandit27-git@localhost:2220/home/bandit27-git/repo
+
+# Attacking machine
+git clone ssh://bandit27-git@bandit.labs.overthewire.org:2220/home/bandit27-git/repo
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_115.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+Now with the repository downloaded, I look at its content and I find a **README** file with `bandit28`'s password
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_116.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+Advance to the next challenge as **`bandit28`**
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_117.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 28
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_118.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+For the challenge, I download the repository again, but this time if I open the **README.md** file, I see that the password is hidden.
+
+```bash
+# Host victime
+cd /tmp
+mktemp -d
+cd /tmp/tmp.w9tKsF2eiK
+git clone ssh://bandit28-git@localhost:2220/home/bandit28-git/repo
+
+# Attacking machine
+git clone ssh://bandit28-git@bandit.labs.overthewire.org:2220/home/bandit28-git/repo
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_119.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_120.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+I have the suspicion that there were modifications in the **README.md** file so with `git` I can see the **logs** to see if there is any that catches my attention.
+
+```bash
+git log
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_121.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+Exactly! there is a commit with a very striking description and I can observe with `git` the change that was made and so I find the password for the next challenge.
+
+```bash
+git log -p
+git show .....
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_122.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+Advance to the next challenge as **`bandit29`**
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_123.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 29
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_124.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+Continue playing with `git`, download the repository and open the **README.md** file, it does not have the password in clear text either.
+
+```bash
+git clone ssh://bandit29-git@localhost:2220/home/bandit29-git/repo
+cat README.md
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_125.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_126.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+If I look in the **logs** to see some commits and changes made I find nothing interesting.
+
+```bash
+git log
+git log -p
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_127.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+But now that I remember in the **README.md** file I am informed that the password is **not in production**, I can see in which **branch** I am and which ones exist, I find a very interesting one, **`dev`**.
+
+```bash
+git branch
+git branch -r
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_128.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+I can switch **branches** with `git` and choose the **`dev`**, and look at its **logs**, now I find more information and analyzing more in depth I find a **commit** that in its changes contains the password for `bandit30`.
+
+```bash
+git checkout dev
+git log
+git log -p
+git show 13e735685c73e5e396252074f2dca2e415fbcc98
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_129.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_130.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_131.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_132.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+I continue my way to the next level and connect with SSH as the user **`bandit30`**.
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_133.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 30
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_134.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+At this level I continue to experiment with `git`, I download the repository and now the **README.md** file does not give me any information.
+
+```bash
+git clone ssh://bandit30-git@localhost:2220/home/bandit30-git/repo
+cat README.md
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_135.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_136.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+If I investigate in the **logs**, there is also no important **commit** and I look for another **branch** in the `git` and there is nothing interesting either.
+
+```bash
+git log
+git show 59530d3.....
+git branch
+git branch -r
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_137.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+But in `git` there is the concept of **tag**, which can help me to advance to the next level.
+
+> **tag**: are ref's that point to specific points in `Git` history. Tagging is generally used to capture a point in history that is used for a marked version release (i.e. v1. 0.1). A **tag** is like a **branch** that doesn't change. Unlike branches, tags, after being created, have no further history of commits.
+
+I search for **tag** and I find one called **secret** and if I show it I find the password of the user **`bandit31`**.
+
+```bash
+git tag
+git show secret
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_138.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+I advance to the next level, I can now connect via **SSH** as **`bandit31`**.
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_139.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 31
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_140.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+I think this is the last level where you practice with `git`. I download the repository and open the **README.md** file and it asks me to `PUSH` a file to the GIT project.
+
+```bash
+git clone ssh://bandit31-git@localhost:2220/home/bandit31-git/repo
+cat README.md
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_141.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_142.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+With `git` I can add a change to the project with the `add` command but in the **.gitignore** file it is defined that files with **`.txt`** extension must be ignored, so I delete the **.gitignore** file and I can create the update to send in a future commit.
+
+> The **git add** command adds a change in the working directory to the staging area. It tells Git that you want to include updates to a particular file in the next commit.
+
+```bash
+touch key.txt
+echo 'May I come in?' > key.txt
+git add key.txt
+
+rm .gitignore
+
+git add key.txt
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_143.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+Now I can create a **commit** with a description and load with `push` command the commit in the remote repository, this way I get the password of the `bandit32` user.
+
+> A **Git commit** is a snapshot of the hierarchy (Git tree) and the contents of the files (Git blob) in a Git repository. These endpoints allow you to read and write commit objects to your Git database on GitHub
+
+> The **git push command** is used to upload local repository content to a remote repository. Pushing is how you transfer commits from your local repository to a remote repo.
+
+```bash
+git commit -m "Send file to server"
+git push -u origin master
+```
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_144.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_145.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+Now I connect as **`bandit32`** via **SSH** and I am close to finish all the challenges.
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_146.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+## Level 32
+-----------
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_147.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+At this level I must escape from a **restricted environment**, since all the commands I enter are transformed into capital letters and the terminal does not interpret them correctly.
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_148.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+In Linux there is the concept of **special variables**, for this challenge I can use the variable **`$0`** in order to spawn a shell.
+
+> The **`$0`** is one of the special variables you get in **bash** and is used to print the filename of the script that is currently being executed. The **`$0`** variable can be used in two ways in Linux: Use **`$0`** to **find the logged-in shell**. Use **`$0`** to print the name of the script that is being executed
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_149.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_150.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+
+I can now access the last challenge as **`bandit33`** and if I open the **README.txt** it informs me to finish all the challenges.
+
+<br />
+<img src="{{ site.img_path }}/overthewirebandit/OTH_bandit_151.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">  
+<br />
+<br />
+
+> As a first game for newbie, **OTW** is an excellent resource to get started in **bash scripting**, now I'm going for the next game [Natas](https://overthewire.org/wargames/natas/){:target="_blank"}
+
+<br />
+<br />
 
 ## Resources
 ------------
