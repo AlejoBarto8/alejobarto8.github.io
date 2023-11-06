@@ -5,7 +5,7 @@ date:   2023-11-05
 desc: "SQLi Error Based, Information Leakage"
 keywords: "HTB,eJPT,eWPT,Easy"
 categories: [HTB]
-tags: [HTB,eJPT,eWPT,SQLi,ErrorBased,Easy]
+tags: [HTB,eJPT,eWPT,Linux,SQLi,ErrorBased,Easy]
 icon: icon-htb
 ---
 
