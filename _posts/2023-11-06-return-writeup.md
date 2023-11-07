@@ -5,7 +5,7 @@ date:   2023-11-06
 desc: "Abusing Printer, Abusing Server Operators Group, Service Configuration Manipulation"
 keywords: "HTB,eJPT,OSCP,Easy"
 categories: [HTB]
-tags: [HTB,eJPT,OSCP,Windows,Easy]
+tags: [HTB,eJPT,OSCP,Windows,binPath,Easy]
 icon: icon-htb
 ---
 

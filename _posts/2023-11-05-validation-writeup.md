@@ -20,7 +20,7 @@ I'm going to start by respecting the recommended methodology to perform a pentes
 ; max-width: 400px;">
 <br/><br/>
 
-I use the **s4vitar** script **[htbExplorer](https://github.com/s4vitar/htbExplorer){:target="_blank"}** to display the Box. And then I verify if I already have connectivity with it, if everything works correctly I can use `nmap` to list those ports that are open on the victim machine. In case I do not find open ports, I can try with other protocols or remove the --open parameter so that it does not filter those ports that are filtered.
+I use the **s4vitar** script **[htbExplorer](https://github.com/s4vitar/htbExplorer){:target="_blank"}** to deploy the Box. And then I verify if I already have connectivity with it, if everything works correctly I can use `nmap` to list those ports that are open on the victim machine. In case I do not find open ports, I can try with other protocols or remove the --open parameter so that it does not filter those ports that are filtered.
 
 ```bash
 ./htbExplorer -d Validation
