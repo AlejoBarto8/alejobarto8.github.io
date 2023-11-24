@@ -212,7 +212,7 @@ systeminfo
 
 After not finding much in the system, I am going to upload the **[winPEAS](https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS ){:target="_blank"}** script from **Carlos Polop** that automates the search for possible attack vectors, to root the box. I transfer it to the victim machine and run it, after a while and analyzing the result, I find a vulnerability, having **AlwaysInstallElevated** enabled can result in a **Privilege Escalation**, as indicated by **[HackTricks](https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#alwaysinstallelevated){:target="_blank"}**. As the user has the permissions to install or run **`.msi`** files, I can create a binary with this extension and send me a **Reverse Shell**, using `msfvenom`. I transfer the malicious binary and I can get the shell as the **NT AUTHORITY\SYSTEM** user.
 
-> **Tip**: When I get the results, I can't see the whole report, so I have to modify the **Scrollback** of `kitty`, modifying **kitty.conf**.
+> **Tip**: When I get the results, I can't see the whole report, so I have to modify the **[Scrollback](https://lyz-code.github.io/blue-book/kitty/){:target="_blank"}** of `kitty`, modifying **kitty.conf**.
 
 > **kitty.conf**
 
