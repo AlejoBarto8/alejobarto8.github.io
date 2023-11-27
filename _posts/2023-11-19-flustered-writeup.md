@@ -2,7 +2,7 @@
 layout: post
 title:  "Flustered Writeup - Hack The Box"
 date:   2023-11-19
-desc: "Expoloitation Squid Proxy & GlusterFS & Azure Storage, Information Leakage, Server Side Template Injection"
+desc: "Exploitation Squid Proxy & GlusterFS & Azure Storage, Information Leakage, Server Side Template Injection"
 keywords: "HTB,OSCP,eWPTXv2,eCPPTv2,OSWE,eJPT,eWPT,Medium"
 categories: [HTB]
 tags: [HTB,OSCP,eWPTXv2,eCPPTV2,OSWE,eJPT,eWPT,Linux,SquidProxy,GlusterFS,AzureStorage,SSTI,Easy]
