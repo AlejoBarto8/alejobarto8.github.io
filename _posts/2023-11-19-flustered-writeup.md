@@ -11,7 +11,7 @@ icon: icon-htb
 
 > **Disclaimer:** The ***writeups*** that I do on the different machines that I try to vulnerate, cover all the actions that I perform, even those that could be considered wrong, I consider that they are an essential part of the **learning curve** to become a **good professional**. So it can become very extensive content, if you are looking for something more direct, you should look for another site, there are many and of higher quality and different resolutions, moreover, I advocate that it is part of learning to consult different sources, to obtain greater expertise.
 
-I'm going to remake this box, [Hack The Box](https://www.hackthebox.com/){:target="_blank"} **Flustered**, which I already did in a live of **Tito S4vitar**. It is a machine with a **Linux OS**, classified as **Medium**, where the complexity is not in the vulnerabilities, but in my opinion, to know new technologies and to be able to interact with them, investigating on how to install and use programs in client mode to filter information.
+I'm going to remake this box, **[Hack The Box](https://www.hackthebox.com/){:target="_blank"}** **Flustered**, which I already did in a live of **Tito S4vitar**. It is a machine with a **Linux OS**, classified as **Medium**, where the complexity is not in the vulnerabilities, but in my opinion, to know new technologies and to be able to interact with them, investigating on how to install and use programs in client mode to filter information.
 
 <br/><br/>
 <img src="{{ site.img_path }}/flustered_writeup/Flustered.png" width="100%" style="margin: 0 auto;display: block
@@ -27,6 +27,7 @@ I deploy the box with **[htbExplorer](https://github.com/s4vitar/htbExplorer){:t
 ```bash
 sudo nmap -sS --min-rate 5000 -p- --open -vvv -n -Pn 10.10.11.131 -oG allPorts
 ```
+
 <br/>
 <img src="{{ site.img_path }}/flustered_writeup/Flustered_00.png" width="100%" style="margin: 0 auto;display: block
 ; max-width: 900px;">
