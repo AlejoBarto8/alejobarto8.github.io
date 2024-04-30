@@ -80,6 +80,7 @@ searchsploit -x 48940.txt
 <img src="{{ site.img_path }}/buff_writeup/Buff_06.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br />
 <img src="{{ site.img_path }}/buff_writeup/Buff_07.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<br />
 <img src="{{ site.img_path }}/buff_writeup/Buff_08.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br /><br />
 
