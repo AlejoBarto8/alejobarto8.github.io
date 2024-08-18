@@ -2718,6 +2718,12 @@ body {
   }
 }
 
+.icon-certificate {
+  &::before {
+    content: "\f0a3";
+  }
+}
+
 @media (min-width: 768px) {
   .landing-page {
     .navbar-wrapper {
