@@ -823,7 +823,8 @@ button.dim:active:before {
 }
 
 .img-circle {
-  border-radius: 50%;
+  /*border-radius: 50%;*/
+  border-radius: 0;
 }
 
 .btn-circle {

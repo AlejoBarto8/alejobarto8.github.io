@@ -14,7 +14,7 @@ author:  # change following line to your infomation.
   name: Al3j0_8  # Be used at blog posts' author.
   first_name: Alejandro  # Be used at index page about me section.
   last_name: Moya  # Be used at index page about me section.
-  avatar: /static/assets/img/landing/084L_logo.png  # upload your avatar at directory and edit it.
+  avatar: /static/assets/img/landing/logo_0ld8.svg  # upload your avatar at directory and edit it.
   github_username: AlejoBarto8  # Leave blank if you don't have now
   linkedin_id: alejo-fr33d0m  # Leave blank if you don't have now
   facebook_username:  # Leave blank if you don't have now
@@ -52,7 +52,7 @@ donation: on  # type 'on'/'off' to choice display donation button at post page o
 
 ## carousels
 index_carousel: on  # index page carousel switch
-blog_carousel: on  # blog page carousel switch
+blog_carousel: off  # blog page carousel switch
 
 # scss
 sass:
