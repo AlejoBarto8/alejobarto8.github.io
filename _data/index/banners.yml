@@ -7,11 +7,11 @@
 #  title: first banner image
   title: 0ldb0y header first video
 
-- src: landing/header_two_video.gif
-  title: 0ldb0y header second video
+#- src: landing/header_two_video.gif
+#  title: 0ldb0y header second video
 
-- src: landing/header_three_video.gif
-  title: 0ldb0y header third video
+#- src: landing/header_three_video.gif
+#  title: 0ldb0y header third video
 
 - src: landing/header_four_video.gif
   title: 0ldb0y header fourth video
