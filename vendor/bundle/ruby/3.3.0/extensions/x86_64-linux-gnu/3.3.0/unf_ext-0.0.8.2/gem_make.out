@@ -1,0 +1,19 @@
+current directory: /home/al3j0/Documents/S4vitar/Github_pages_templates/alejobarto8.github.io/vendor/bundle/ruby/3.3.0/gems/unf_ext-0.0.8.2/ext/unf_ext
+/usr/bin/ruby3.3 -I/usr/lib/ruby/vendor_ruby extconf.rb
+checking for -lstdc++... yes
+creating Makefile
+
+current directory: /home/al3j0/Documents/S4vitar/Github_pages_templates/alejobarto8.github.io/vendor/bundle/ruby/3.3.0/gems/unf_ext-0.0.8.2/ext/unf_ext
+make DESTDIR\= sitearchdir\=./.gem.20250303-338374-xrxklg sitelibdir\=./.gem.20250303-338374-xrxklg clean
+
+current directory: /home/al3j0/Documents/S4vitar/Github_pages_templates/alejobarto8.github.io/vendor/bundle/ruby/3.3.0/gems/unf_ext-0.0.8.2/ext/unf_ext
+make DESTDIR\= sitearchdir\=./.gem.20250303-338374-xrxklg sitelibdir\=./.gem.20250303-338374-xrxklg
+compiling unf.cc
+linking shared-object unf_ext.so
+
+current directory: /home/al3j0/Documents/S4vitar/Github_pages_templates/alejobarto8.github.io/vendor/bundle/ruby/3.3.0/gems/unf_ext-0.0.8.2/ext/unf_ext
+make DESTDIR\= sitearchdir\=./.gem.20250303-338374-xrxklg sitelibdir\=./.gem.20250303-338374-xrxklg install
+/usr/bin/install -c -m 0755 unf_ext.so ./.gem.20250303-338374-xrxklg
+
+current directory: /home/al3j0/Documents/S4vitar/Github_pages_templates/alejobarto8.github.io/vendor/bundle/ruby/3.3.0/gems/unf_ext-0.0.8.2/ext/unf_ext
+make DESTDIR\= sitearchdir\=./.gem.20250303-338374-xrxklg sitelibdir\=./.gem.20250303-338374-xrxklg clean

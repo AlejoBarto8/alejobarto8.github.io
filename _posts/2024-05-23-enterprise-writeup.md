@@ -21,7 +21,7 @@ The **[Hack The Box](https://www.hackthebox.com){:target="_blank"}** **Enterpris
 <img src="{{ site.img_path }}/enterprise_writeup/Enterprise_000.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br /><br />
 
-After I deploy the machine on the **[Hack The Box](https://www.hackthebox.com){:target="_blank"}** platform, I can already check my connectivity with it using `ping` and start the **Reconnaissance phase** to evaluate possible attack vectors, I find with `nmap` some **HTTP** services and another somewhat strange one on port **32812* that I will look at more in depth later. With the information I have I can search the Internet for the **codename**, the strange thing is that I <ins>find different ones</ins>, a ***clear sign** that **containers** are being implemented. Also with `whatweb` I look for more information on the technologies that are implemented in **HTTP** services, nothing interesting so far.
+After I deploy the machine on the **[Hack The Box](https://www.hackthebox.com){:target="_blank"}** platform, I can already check my connectivity with it using `ping` and start the **Reconnaissance phase** to evaluate possible attack vectors, I find with `nmap` some **HTTP** services and another somewhat strange one on port **32812** that I will look at more in depth later. With the information I have I can search the Internet for the **codename**, the strange thing is that I <ins>find different ones</ins>, a **clear sign** that **containers** are being implemented. Also with `whatweb` I look for more information on the technologies that are implemented in **HTTP** services, nothing interesting so far.
 
 ```bash
 ping -c 1 10.10.10.61

@@ -50,7 +50,7 @@ nvim Users.txt
 <img src="{{ site.img_path }}/node_writeup/Node_004.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br /><br />
 
-If I access the web service from my browser, I can log in. I try some default credentials and some **SQL injections** but they don't work, I'm going to use `wfuzz` to see if I find any interesting hidden directory, but the ones I found redirect me to the home page if I want to access, and I don't find the **Forbidden*** message that many times I use to keep listing directories.
+If I access the web service from my browser, I can log in. I try some default credentials and some **SQL injections** but they don't work, I'm going to use `wfuzz` to see if I find any interesting hidden directory, but the ones I found redirect me to the home page if I want to access, and I don't find the **Forbidden** message that many times I use to keep listing directories.
 
 ```bash
 # http://10.10.10.58:3000/login
