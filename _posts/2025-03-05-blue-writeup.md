@@ -15,7 +15,7 @@ icon: icon-htb
 <img src="{{ site.img_path }}/blue_writeup/Blue.png" width="100%" style="margin: 0 auto;display: block; max-width: 600px;">
 <br /><br />
 
- **[Hack The Box](https://www.hackthebox.com){:target="_blank"}**'s **Blue** machine (Rated as **Easy**) has a vulnerability known worldwide for the impact it had on several organizations, **EternalBlue**, which I think is very nice to exploit to know the risks of not having a version update plan in action. The **Engagement** of the box is simple, but you can take advantage of this kind of lab to practice persistence or firewall bypass or other techniques. Well, it's time to spawn the box and start the **Engagement** methodology, which I'm refining as I face new **[Hack The Box](https://www.hackthebox.com){:target="_blank"}** labs.
+**[Hack The Box](https://www.hackthebox.com){:target="_blank"}**'s **Blue** machine (Rated as **Easy**) has a vulnerability known worldwide for the impact it had on several organizations, **EternalBlue**, which I think is very nice to exploit to know the risks of not having a version update plan in action. The **Engagement** of the box is simple, but you can take advantage of this kind of lab to practice persistence or firewall bypass or other techniques. Well, it's time to spawn the box and start the **Engagement** methodology, which I'm refining as I face new **[Hack The Box](https://www.hackthebox.com){:target="_blank"}** labs.
 
 <br /><br />
 <img src="{{ site.img_path }}/blue_writeup/Blue_00.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
