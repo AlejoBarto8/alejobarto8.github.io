@@ -112,7 +112,7 @@ nmap --script http-enum -p80 10.10.10.102 -oN webScan
 ; max-width: 900px;">
 <br/><br/>
 
-To access **Drupal** I need the credentials, and I think the best option is the file encrypted with **OpenSSL**. If I use `base64` to decode it and see its content, it is unreadable. So it is practically sure that it was encrypted with **OpennSSL** using some known encryption algorithm. If I search on the internet for: **"openssl decrypt encrypted file"**, I find many resources so I go through until I find **[https://www.geeksforgeeks.org/blockchain-encrypt-decrypt-files-with-password-using-openssl/]{:target="_blank"}** that explains and gives me what I need. I make a couple of tests to encrypt and decrypt a file, what I need is the password, then I create a script to perform a brute force attack and I can get the password and then the contents of the protected file.
+To access **Drupal** I need the credentials, and I think the best option is the file encrypted with **OpenSSL**. If I use `base64` to decode it and see its content, it is unreadable. So it is practically sure that it was encrypted with **OpennSSL** using some known encryption algorithm. If I search on the internet for: **"openssl decrypt encrypted file"**, I find many resources so I go through until I find **[Blockchain - Encrypt & Decrypt Files With Password Using OpenSSL](https://www.geeksforgeeks.org/blockchain-encrypt-decrypt-files-with-password-using-openssl/){:target="_blank"}** that explains and gives me what I need. I make a couple of tests to encrypt and decrypt a file, what I need is the password, then I create a script to perform a brute force attack and I can get the password and then the contents of the protected file.
 
 ```bash
 openssl aes-256-cbc -in test.txt -out test.enc -k olddboy123
@@ -188,6 +188,7 @@ tcpdump -i tun0 icmp -n
 ; max-width: 900px;">
 <br/>
 <img src="{{ site.img_path }}/hawk_writeup/Hawk_17.png" width="100%" style="margin: 0 auto;display: block
+; max-width: 900px;">
 <br/>
 <img src="{{ site.img_path }}/hawk_writeup/Hawk_18.png" width="100%" style="margin: 0 auto;display: block
 ; max-width: 900px;">
