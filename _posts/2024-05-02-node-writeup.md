@@ -446,7 +446,7 @@ cat /var/www/myplace/app.js
 Now I run the binary with `ltrace` and I do a little reverse engineering, the first thing I see are the different values with which it is making a comparison with the parameters that I pass it. The second argument is apparently done with a key, and also if I open the file where it looks for them, I find a list of keys that are the correct ones. I also think I recognize a blacklist of values for the third parameter. After several tests and correcting some of my mistakes, I succeed in executing the program and get an error message indicating that the third argument must be a path.
 
 ```bash
-ltrace./usr/local/bin/backup one two three
+ltrace ./usr/local/bin/backup one two three
 #    --> strcmp("a", "-q")
 #    --> fopen("/etc/myplace/keys", "r")
 
@@ -464,7 +464,7 @@ ltrace ./usr/local/bin/backup -q 3de811f4ab2b7543eaf45df611c2dd2541a5fc5af601772
 ls -a /tmp                # ??
 
 ./usr/local/bin/backup a a01a6aa5aaf1d7729f35c8278daae30f8a988257144c003f8b12c5aec39bc508 three
- #                        --> The target path doesn't existi        :)
+ #                        --> The target path doesn't exist        :)
 ```
 
 <br />
