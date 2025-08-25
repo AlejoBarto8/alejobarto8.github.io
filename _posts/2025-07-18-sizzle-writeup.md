@@ -3,9 +3,9 @@ layout: post
 title:  "Sizzle Writeup - Hack The Box"
 date:   2025-07-18
 desc: ""
-keywords: "HTB,eCPPTv3,OSEP,OSCP,Windows,ActiveDirectory,Nmap-Bootstrap-XSL,SMBCacls,Malicious SCS File,LDAP Enumeration,Mricrosoft AD Certificate Services Abuse,AppLocker Break Out,BloodHound,PsBypassCLM,Kerberoasting Attack,DCSync Attack,PassTheHash,Insane"
+keywords: "HTB,eCPPTv3,OSEP,OSCP,Windows,ActiveDirectory,Nmap-Bootstrap-XSL,SMBCacls,Malicious SCS File,LDAP Enumeration,Microsoft AD Certificate Services Abuse,AppLocker Break Out,BloodHound,PsBypassCLM,Kerberoasting Attack,DCSync Attack,PassTheHash,Insane"
 categories: [HTB]
-tags: [HTB,eCPPTv3,OSEP,OSCP,Windows,ActiveDirectory,Nmap-Bootstrap-XSL,SMBCacls,Malicious SCS File,LDAP Enumeration,Mricrosoft AD Certificate Services Abuse,AppLocker Break Out,BloodHound,PsBypassCLM,Kerberoasting Attack,DCSync Attack,PassTheHash,Insane]
+tags: [HTB,eCPPTv3,OSEP,OSCP,Windows,ActiveDirectory,Nmap-Bootstrap-XSL,SMBCacls,Malicious SCS File,LDAP Enumeration,Microsoft AD Certificate Services Abuse,AppLocker Break Out,BloodHound,PsBypassCLM,Kerberoasting Attack,DCSync Attack,PassTheHash,Insane]
 icon: icon-htb
 ---
 
