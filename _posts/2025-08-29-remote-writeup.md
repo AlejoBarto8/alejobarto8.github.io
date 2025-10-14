@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Remote Writeup - Hack The Box"
-date:   2025-09-29
+date:   2025-08-29
 desc: ""
 keywords: "HTB,OSCP,eWPT,Windows,TCPing,Web Enumeration,NFS,Information Leakage,Umbraco CMS,TeamViewer,Easy"
 categories: [HTB]
