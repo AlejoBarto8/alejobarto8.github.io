@@ -273,7 +273,7 @@ If I look for the last flag, I look first of all in the **Administrator** user's
 type hm.txt
 
 dir /r
-more < ht.txt:root.txt
+more < hm.txt:root.txt
 ```
 
 <br/>

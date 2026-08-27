@@ -12,7 +12,7 @@ icon: icon-htb
 > **Disclaimer:** The ***writeups*** that I do on the different machines that I try to vulnerate, cover all the actions that I perform, even those that could be considered wrong, I consider that they are an essential part of the **learning curve** to become a **good professional**. So it can become very extensive content, if you are looking for something more direct, you should look for another site, there are many and of higher quality and different resolutions, moreover, I advocate that it is part of learning to consult different sources, to obtain greater expertise.
 
 <br /><br />
-<img src="{{ site.img_path }}/devoops_writeup/DevOops.jpg" width="100%" style="margin: 0 auto;display: block; max-width: 600px;">
+<img src="{{ site.img_path }}/devoops_writeup/DevOops.png" width="100%" style="margin: 0 auto;display: block; max-width: 600px;">
 <br /><br />
 
 **[Hack The Box](https://www.hackthebox.com){:target="_blank"}** **DevOops** box is next, classified as **Medium** by the hacking community, which has a very well known vulnerability but very fun to exploit. Also the **Privilege Escalation** part is not very complex but it does take some time if you don't know what you are looking for, but the **Enumeration** phase also depends a lot on the experience you have practicing with different labs or the natural instinct you have, I had to practice continuously because I don't have any natural talent in this demanding field. It is time to spawn the box and start the challenge.

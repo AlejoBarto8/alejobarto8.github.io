@@ -261,7 +261,7 @@ What I am going to do is to bring that port to my machine using a tunnel with **
 ```bash
 python3 -m http.server 80
 
-./chisel server 1234 --reverse --port 1234
+./chisel server --reverse --port 1234
 ```
 
 > **Victime Machine**:
