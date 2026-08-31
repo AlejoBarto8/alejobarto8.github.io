@@ -15,7 +15,7 @@ Well, this [Hack The Box](https://www.hackthebox.com/){:target="_blank"} represe
 
 <br/><br/>
 <img src="{{ site.img_path }}/jerry_writeup/Jerry.png" width="100%" style="margin: 0 auto;display: block
-; max-width: 400px;">
+; max-width: 700px;">
 <br/><br/>
 
 With the **[htbExplorer](https://github.com/s4vitar/htbExplorer){:target="_blank"}** script I deploy the box, and verify the connectivity with it. I also have the script `whichSystem.py` to take advantage of the **TTL** and check the operating system of the victim machine. With `nmap` I enumerate the ports, services and their versions that I am going to try to breach. In this case I only find one open port, **8080**, and it also has an **Apache Tomcat 7.0.88** deployed, so I am already thinking about a possible vulnerability to exploit. With `searchsploit` I find several exploits for this type of server and with `whatweb` I confirm the technology being deployed in the web service exposed on port **8080**.
